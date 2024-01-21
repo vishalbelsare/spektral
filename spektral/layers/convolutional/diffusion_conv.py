@@ -2,7 +2,7 @@ import tensorflow as tf
 import tensorflow.keras.layers as layers
 
 from spektral.layers.convolutional.conv import Conv
-from spektral.utils import gcn_filter
+from spektral.utils import normalized_adjacency
 
 
 class DiffuseFeatures(layers.Layer):
@@ -36,7 +36,7 @@ class DiffuseFeatures(layers.Layer):
         kernel_initializer,
         kernel_regularizer,
         kernel_constraint,
-        **kwargs
+        **kwargs,
     ):
         super().__init__(**kwargs)
 
@@ -124,14 +124,14 @@ class DiffusionConv(Conv):
         kernel_initializer="glorot_uniform",
         kernel_regularizer=None,
         kernel_constraint=None,
-        **kwargs
+        **kwargs,
     ):
         super().__init__(
             activation=activation,
             kernel_initializer=kernel_initializer,
             kernel_regularizer=kernel_regularizer,
             kernel_constraint=kernel_constraint,
-            **kwargs
+            **kwargs,
         )
 
         self.channels = channels
@@ -178,4 +178,4 @@ class DiffusionConv(Conv):
 
     @staticmethod
     def preprocess(a):
-        return gcn_filter(a)
+        return normalized_adjacency(a)

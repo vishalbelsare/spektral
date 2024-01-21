@@ -116,9 +116,8 @@ class InnerProduct(Layer):
         kernel_initializer="glorot_uniform",
         kernel_regularizer=None,
         kernel_constraint=None,
-        **kwargs
+        **kwargs,
     ):
-
         super().__init__(**kwargs)
         self.trainable_kernel = trainable_kernel
         self.activation = activations.get(activation)
@@ -184,7 +183,6 @@ class MinkowskiProduct(Layer):
     """
 
     def __init__(self, activation=None, **kwargs):
-
         super().__init__(**kwargs)
         self.activation = activations.get(activation)
 

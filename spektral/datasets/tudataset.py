@@ -39,7 +39,7 @@ class TUDataset(Dataset):
     Graph labels are provided for each dataset.
 
     Specific details about each individual dataset can be found in
-    `~/.spektral/datasets/TUDataset/<dataset name>/README.md`, after the dataset
+    `~/spektral/datasets/TUDataset/<dataset name>/README.md`, after the dataset
     has been downloaded locally (datasets are downloaded automatically upon
     calling `TUDataset('<dataset name>')` the first time).
 
@@ -216,7 +216,7 @@ def _normalize(x, norm=None):
     Apply one-hot encoding or z-score to a list of node features
     """
     if norm == "ohe":
-        fnorm = OneHotEncoder(sparse=False, categories="auto")
+        fnorm = OneHotEncoder(sparse_output=False, categories="auto")
     elif norm == "zscore":
         fnorm = StandardScaler()
     else:

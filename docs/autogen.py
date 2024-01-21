@@ -27,6 +27,7 @@ PAGES = [
             layers.AGNNConv,
             layers.APPNPConv,
             layers.ARMAConv,
+            layers.CensNetConv,
             layers.ChebConv,
             layers.CrystalConv,
             layers.DiffusionConv,
@@ -39,8 +40,11 @@ PAGES = [
             layers.GCSConv,
             layers.GINConv,
             layers.GraphSageConv,
+            layers.GTVConv,
             layers.TAGConv,
             layers.XENetConv,
+            layers.GINConvBatch,
+            layers.XENetConvBatch,
         ],
     },
     {
@@ -49,11 +53,14 @@ PAGES = [
         "methods": [],
         "classes": [
             layers.SRCPool,
+            layers.AsymCheegerCutPool,
             layers.DiffPool,
             layers.LaPool,
             layers.MinCutPool,
             layers.SAGPool,
             layers.TopKPool,
+            layers.JustBalancePool,
+            layers.DMoNPool,
         ],
     },
     {
@@ -122,6 +129,8 @@ PAGES = [
         "methods": [],
         "classes": [
             datasets.Citation,
+            datasets.DBLP,
+            datasets.Flickr,
             datasets.GraphSage,
             datasets.PPI,
             datasets.Reddit,

@@ -13,13 +13,13 @@ class DiffPool(SRCPool):
     > [Hierarchical Graph Representation Learning with Differentiable Pooling](https://arxiv.org/abs/1806.08804)<br>
     > Rex Ying et al.
 
-    **Mode**: batch.
+    **Mode**: single, batch.
 
     This layer learns a soft clustering of the input graph as follows:
     $$
         \begin{align}
-            \S &= \textrm{GNN}_{embed}(\A, \X); \\
-            \Z &= \textrm{GNN}_{pool}(\A, \X); \\
+            \Z &= \textrm{GNN}_{embed}(\A, \X); \\
+            \S &= \textrm{GNN}_{pool}(\A, \X); \\
             \X' &= \S^\top \Z; \\
             \A' &= \S^\top \A \S; \\
         \end{align}
@@ -76,14 +76,14 @@ class DiffPool(SRCPool):
         kernel_initializer="glorot_uniform",
         kernel_regularizer=None,
         kernel_constraint=None,
-        **kwargs
+        **kwargs,
     ):
         super().__init__(
             return_selection=return_selection,
             kernel_initializer=kernel_initializer,
             kernel_regularizer=kernel_regularizer,
             kernel_constraint=kernel_constraint,
-            **kwargs
+            **kwargs,
         )
         self.k = k
         self.channels = channels

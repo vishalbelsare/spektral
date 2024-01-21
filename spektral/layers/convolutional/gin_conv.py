@@ -3,6 +3,7 @@ from tensorflow.keras import activations
 from tensorflow.keras.layers import BatchNormalization, Dense
 from tensorflow.keras.models import Sequential
 
+from spektral.layers import ops
 from spektral.layers.convolutional.message_passing import MessagePassing
 
 
@@ -73,7 +74,7 @@ class GINConv(MessagePassing):
         activity_regularizer=None,
         kernel_constraint=None,
         bias_constraint=None,
-        **kwargs
+        **kwargs,
     ):
         super().__init__(
             aggregate=aggregate,
@@ -86,7 +87,7 @@ class GINConv(MessagePassing):
             activity_regularizer=activity_regularizer,
             kernel_constraint=kernel_constraint,
             bias_constraint=bias_constraint,
-            **kwargs
+            **kwargs,
         )
         self.channels = channels
         self.epsilon = epsilon
@@ -140,3 +141,19 @@ class GINConv(MessagePassing):
             "mlp_activation": self.mlp_activation,
             "mlp_batchnorm": self.mlp_batchnorm,
         }
+
+
+class GINConvBatch(GINConv):
+    r"""
+    A batch-mode version of GINConv.
+
+    **Mode**: batch.
+
+    **This layer expects a dense adjacency matrix.**
+    """
+
+    def call(self, inputs, **kwargs):
+        x, a = inputs
+        output = self.mlp((self.one + self.eps) * x + ops.modal_dot(a, x))
+
+        return output
